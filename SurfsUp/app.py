@@ -21,7 +21,7 @@ from flask import Flask, jsonify
 #################################################
 # Flask Setup
 #################################################
-app=Flask(__name__)
+app = Flask(__name__)
 
 
 
@@ -30,7 +30,7 @@ app=Flask(__name__)
 #################################################
 @app.route("/")
 def home():
-    return "Flask is not so bad"
+    return "list all available routes"
 
 @app.route("/api/v1.0/precipitation")
 def precipitation():
@@ -43,7 +43,7 @@ def stations():
     #code goes here
     return jsonify "stations"
 
-@app.route()
+@app.route("/api/v1.0/tobs")
 def tobs():
     #code goes here
     return jsonify "tobs"
