@@ -1,5 +1,12 @@
 # Import the dependencies.
 from flask import Flask, jsonify
+import numpy as np
+import pandas as pd
+import datetime as dt
+import sqlalchemy
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine, func
 
 
 #################################################
@@ -40,19 +47,25 @@ def home():
 
 @app.route("/api/v1.0/precipitation")
 def precipitation():
-    #code goes here
-    my_list = [5, 75, 389]
-    return jsonify(my_list)
+    year_precipitation = dt.date(2017, 8, 23) - dt.timedelta(days=365)
+    precipitation_data = session.query(Measurement.date, Measurement.prcp).order_by(Measurement.date).filter(Measurement.date >= year_precipitation).all()
+    clean_data = {}
+    for row in precipitation_data:
+        clean_data[row[0]] = row[1]
+    session.close()
+    return jsonify(clean_data)
+
+
 
 @app.route("/api/v1.0/stations")
 def stations():
     #code goes here
-    return jsonify "stations"
+    return 'jsonify "stations"'
 
 @app.route("/api/v1.0/tobs")
 def tobs():
     #code goes here
-    return jsonify "tobs"
+    return 'jsonify "tobs"'
 
 
 if __name__ == "__main__":
